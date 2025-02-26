@@ -3,10 +3,6 @@ import rss from 'rss';
 import { requestNextData } from '@/app/xyz-tools';
 
 export const revalidate = 3600;
-// this empty generateStaticParams is necessary to make revalidate work
-export function generateStaticParams() {
-  return [];
-}
 
 const SELF_URL = process.env.SELF_URL;
 
