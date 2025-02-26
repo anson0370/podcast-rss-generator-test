@@ -3,10 +3,6 @@ import rss from 'rss';
 import { requestNextData } from '@/app/xyz-tools';
 
 export const revalidate = 3600;
-// this empty generateStaticParams is necessary to make revalidate work
-export function generateStaticParams() {
-  return [];
-}
 
 const SELF_URL = process.env.SELF_URL;
 
@@ -102,6 +98,7 @@ export const GET = async (_req: NextRequest, { params }: { params: { id: string 
   return new Response(feed.xml({ indent: true }), {
     headers: {
       'Content-Type': 'application/rss+xml; charset=utf-8',
+      'Cache-Control': 'public, s-maxage=3600, stale-while-revalidate=3600',
     },
   });
 }
