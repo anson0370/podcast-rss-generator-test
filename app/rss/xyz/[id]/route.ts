@@ -2,7 +2,7 @@ import { NextRequest } from 'next/server';
 import rss from 'rss';
 import { requestNextData } from '@/app/xyz-tools';
 
-export const revalidate = 3600;
+export const dynamic = 'force-dynamic';
 
 const SELF_URL = process.env.SELF_URL;
 
