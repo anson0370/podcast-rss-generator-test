@@ -2,9 +2,13 @@ import { NextRequest } from 'next/server';
 import rss from 'rss';
 import { requestNextData } from '@/app/xyz-tools';
 
+const SELF_URL = process.env.SELF_URL;
+
 export const revalidate = 3600;
 
-const SELF_URL = process.env.SELF_URL;
+export async function generateStaticParams() {
+  return [];
+}
 
 export const GET = async (_req: NextRequest, { params }: { params: Promise<{ id: string }>; }) => {
   const { id } = await params;
