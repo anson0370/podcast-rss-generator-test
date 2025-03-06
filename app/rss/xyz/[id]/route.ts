@@ -6,10 +6,12 @@ export const revalidate = 3600;
 
 const SELF_URL = process.env.SELF_URL;
 
-export const GET = async (_req: NextRequest, { params }: { params: { id: string }; }) => {
-  console.log('Generate Xiaoyuzhou RSS for podcast id:', params.id);
+export const GET = async (_req: NextRequest, { params }: { params: Promise<{ id: string }>; }) => {
+  const { id } = await params;
 
-  const link = `https://www.xiaoyuzhoufm.com/podcast/${params.id}`;
+  console.log('Generate Xiaoyuzhou RSS for podcast id:', id);
+
+  const link = `https://www.xiaoyuzhoufm.com/podcast/${id}`;
 
   const res = await requestNextData(link);
 
@@ -58,7 +60,7 @@ export const GET = async (_req: NextRequest, { params }: { params: { id: string 
   const feed = new rss({
     title: podcast.title,
     description: podcast.description ?? undefined,
-    feed_url: `${SELF_URL}/rss/xyz/${params.id}`,
+    feed_url: `${SELF_URL}/rss/xyz/${id}`,
     site_url: link,
     generator: 'Podwise',
     image_url: podcast.image ?? undefined,
